@@ -1,6 +1,8 @@
 const express = require('express');
 const hbs = require('hbs');
 
+require('./hbs/helpers');
+
 let app = express();
 
 app.use(express.static(__dirname+'/public'));
@@ -8,21 +10,6 @@ app.use(express.static(__dirname+'/public'));
 //express handlebars engine
 hbs.registerPartials(__dirname + '/views/partials');
 app.set('view engine', 'hbs');
-
-//helpers
-hbs.registerHelper('getYear', function(){
-    return new Date().getFullYear(); 
-});
-
-hbs.registerHelper('capitalize', (text)=>{
-    
-    let palabras = text.split(' ');
-    palabras.forEach((element,index) => {
-        palabras[index] = element[0].toUpperCase() + element.slice(1).toLowerCase();
-    });
-
-    return palabras.join(' ');
-});
 
 
 app.listen(8888,()=>{
